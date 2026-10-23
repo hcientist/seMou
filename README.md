@@ -6,7 +6,9 @@ A menu bar app for macOS 13 and later that makes multi-monitor setups easier to 
 - **Jump to display:** press ⌃⌥⌘ and an arrow key to move the cursor to the center of the next display in that direction. At the end of a row or column it wraps around.
 - **Pie menu:** press ⌃⌥⌘Space to open a radial menu at the cursor. Then flick the mouse toward a wedge, click a wedge, or press an arrow key. Esc or a click anywhere else closes it.
 
-The menu bar icon has toggles for edge wrap, wrapping while dragging, and launch at login.
+The menu bar icon has toggles for edge wrap, wrapping while dragging, only wrapping with multiple displays, and launch at login.
+
+**Only Wrap with Multiple Displays** is on by default. With it on, a single display, such as a laptop away from its desk, keeps its normal edges. Mirrored displays count as one. Turn it off to wrap within a single screen too.
 
 It needs no special permissions. Mouse movement is watched with an `NSEvent` global monitor, hotkeys use Carbon `RegisterEventHotKey`, and the cursor is moved with `CGWarpMouseCursorPosition`.
 

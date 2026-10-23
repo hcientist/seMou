@@ -5,6 +5,8 @@ import AppKit
 final class EdgeWrapper {
     var isEnabled = true
     var wrapsWhileDragging = false
+    /// When set, a lone display (mirrored displays count as one) keeps its normal hard edges.
+    var requiresMultipleDisplays = true
     /// Set while something else (e.g. the pie menu) owns the cursor.
     var isSuspended = false
 
@@ -33,6 +35,7 @@ final class EdgeWrapper {
         guard dx != 0, Date().timeIntervalSince(lastWarp) > 0.1 else { return }
 
         let displays = Displays.all()
+        guard !requiresMultipleDisplays || displays.count > 1 else { return }
         let p = Displays.cursorLocation
         guard let source = Displays.display(at: p, in: displays) else { return }
         let f = source.frame

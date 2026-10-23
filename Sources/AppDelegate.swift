@@ -6,6 +6,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private enum Key {
         static let wrapEnabled = "wrapEnabled"
         static let wrapWhileDragging = "wrapWhileDragging"
+        static let wrapRequiresMultipleDisplays = "wrapRequiresMultipleDisplays"
     }
 
     /// ⌃⌥⌘ + arrow jumps to the adjacent display; ⌃⌥⌘ + Space opens the pie menu.
@@ -18,9 +19,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var failedHotKeys: [String] = []
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        defaults.register(defaults: [Key.wrapEnabled: true, Key.wrapWhileDragging: false])
+        defaults.register(defaults: [Key.wrapEnabled: true, Key.wrapWhileDragging: false, Key.wrapRequiresMultipleDisplays: true])
         wrapper.isEnabled = defaults.bool(forKey: Key.wrapEnabled)
         wrapper.wrapsWhileDragging = defaults.bool(forKey: Key.wrapWhileDragging)
+        wrapper.requiresMultipleDisplays = defaults.bool(forKey: Key.wrapRequiresMultipleDisplays)
         wrapper.start()
 
         pie.onOpenChange = { [weak self] open in self?.wrapper.isSuspended = open }
@@ -58,6 +60,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let drag = NSMenuItem(title: "Wrap While Dragging", action: #selector(toggleDragWrap), keyEquivalent: "")
         drag.state = wrapper.wrapsWhileDragging ? .on : .off
         menu.addItem(drag)
+
+        let multi = NSMenuItem(title: "Only Wrap with Multiple Displays", action: #selector(toggleRequiresMultipleDisplays), keyEquivalent: "")
+        multi.state = wrapper.requiresMultipleDisplays ? .on : .off
+        menu.addItem(multi)
 
         menu.addItem(.separator())
         for (title, direction) in [("Jump Left", Direction.left), ("Jump Right", .right), ("Jump Up", .up), ("Jump Down", .down)] {
@@ -105,6 +111,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     @objc private func toggleDragWrap() {
         wrapper.wrapsWhileDragging.toggle()
         defaults.set(wrapper.wrapsWhileDragging, forKey: Key.wrapWhileDragging)
+        rebuildMenu()
+    }
+
+    @objc private func toggleRequiresMultipleDisplays() {
+        wrapper.requiresMultipleDisplays.toggle()
+        defaults.set(wrapper.requiresMultipleDisplays, forKey: Key.wrapRequiresMultipleDisplays)
         rebuildMenu()
     }
 
