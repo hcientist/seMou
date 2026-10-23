@@ -76,12 +76,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         for (title, direction) in [("Jump Left", Direction.left), ("Jump Right", .right), ("Jump Up", .up), ("Jump Down", .down)] {
             let item = NSMenuItem(title: title, action: #selector(jumpFromMenu(_:)), keyEquivalent: "")
             item.representedObject = direction
-            item.keyEquivalentModifierMask = [.control, .option, .command]
+            item.keyEquivalentModifierMask = Self.hotKeyMenuModifiers
             item.keyEquivalent = String(Character(UnicodeScalar(arrowKeyEquivalent(direction))!))
             menu.addItem(item)
         }
         let pieItem = NSMenuItem(title: "Show Pie Menu", action: #selector(showPie), keyEquivalent: " ")
-        pieItem.keyEquivalentModifierMask = [.control, .option, .command]
+        pieItem.keyEquivalentModifierMask = Self.hotKeyMenuModifiers
         menu.addItem(pieItem)
 
         if !failedHotKeys.isEmpty {
