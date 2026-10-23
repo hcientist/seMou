@@ -38,7 +38,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        statusItem.button?.image = NSImage(systemSymbolName: "arrow.left.and.right.square", accessibilityDescription: "Semou")
+        let icon = NSImage(named: "MenuBarIcon")
+        icon?.isTemplate = true
+        icon?.size = NSSize(width: 18, height: 18)
+        icon?.accessibilityDescription = "Semou"
+        statusItem.button?.image = icon
         rebuildMenu()
     }
 
