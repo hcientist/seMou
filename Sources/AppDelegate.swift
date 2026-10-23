@@ -9,8 +9,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         static let wrapRequiresMultipleDisplays = "wrapRequiresMultipleDisplays"
     }
 
-    /// ⌃⌥⌘ + arrow jumps to the adjacent display; ⌃⌥⌘ + Space opens the pie menu.
-    private static let hotKeyModifiers = controlKey | optionKey | cmdKey
+    /// ⌃⇧⌘ + arrow jumps to the adjacent display; ⌃⇧⌘ + Space opens the pie menu. Rectangle's
+    /// defaults own ⌃⌥ + arrows and ⌃⌥⌘ + ←/→ (next/previous display), so stay off Option.
+    private static let hotKeyModifiers = controlKey | shiftKey | cmdKey
+    private static let hotKeyMenuModifiers: NSEvent.ModifierFlags = [.control, .shift, .command]
+    private static let hotKeyLabel = "⌃⇧⌘"
 
     private let defaults = UserDefaults.standard
     private let wrapper = EdgeWrapper()
@@ -31,10 +34,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             let ok = HotKeys.shared.register(keyCode: direction.keyCode, modifiers: Self.hotKeyModifiers) { [weak self] in
                 self?.jump(direction)
             }
-            if ok == nil { failedHotKeys.append("⌃⌥⌘\(direction.arrow)") }
+            if ok == nil { failedHotKeys.append("\(Self.hotKeyLabel)\(direction.arrow)") }
         }
         if HotKeys.shared.register(keyCode: kVK_Space, modifiers: Self.hotKeyModifiers, handler: { [weak self] in self?.pie.toggle() }) == nil {
-            failedHotKeys.append("⌃⌥⌘Space")
+            failedHotKeys.append("\(Self.hotKeyLabel)Space")
         }
 
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
