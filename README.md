@@ -26,7 +26,12 @@ You can also go through Xcode: Product → Archive, then Distribute App → Test
 
 ## Continuous delivery
 
-`.github/workflows/testflight.yml` archives the app and uploads it to TestFlight on every push to `main` that changes more than Markdown files. You can also start it by hand from the Actions tab. The build number is the workflow run number.
+`.github/workflows/testflight.yml` archives the app and uploads it to TestFlight on every push to `main` that changes more than Markdown files. You can also start it by hand from the Actions tab.
+
+**Versioning:**
+- **Build number:** the workflow run number, so it goes up on every upload.
+- **Version** (`CFBundleShortVersionString`): taken from the latest `vX.Y.Z` git tag, or `1.0.0` if there are no tags.
+- **Starting a new version:** run the workflow from the Actions tab and choose `patch`, `minor` or `major`. After a successful upload, it tags the commit with the new version. Or push a tag yourself: `git tag v1.2.0 && git push origin v1.2.0`.
 
 Signing is cloud-managed through an App Store Connect API key, so no certificates are stored in the repo. Create a key under App Store Connect → Users and Access → Integrations → Team Keys, with the **Admin** role so it can use cloud-managed distribution signing. Then add these repository secrets:
 
