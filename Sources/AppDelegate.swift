@@ -44,7 +44,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let icon = NSImage(named: "MenuBarIcon")
         icon?.isTemplate = true
         icon?.size = NSSize(width: 18, height: 18)
-        icon?.accessibilityDescription = "Semou"
+        icon?.accessibilityDescription = "seMou"
         statusItem.button?.image = icon
         rebuildMenu()
     }
@@ -94,7 +94,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let login = NSMenuItem(title: "Launch at Login", action: #selector(toggleLaunchAtLogin), keyEquivalent: "")
         login.state = SMAppService.mainApp.status == .enabled ? .on : .off
         menu.addItem(login)
-        menu.addItem(NSMenuItem(title: "Quit Semou", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem(title: "Quit seMou", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
 
         menu.items.forEach { if $0.action != #selector(NSApplication.terminate(_:)) { $0.target = self } }
         statusItem.menu = menu
@@ -147,7 +147,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         } catch {
             let alert = NSAlert(error: error)
             alert.messageText = "Couldn't change the login item"
-            alert.informativeText = "\(error.localizedDescription)\n\nMove Semou.app to /Applications and try again."
+            alert.informativeText = "\(error.localizedDescription)\n\nMove seMou.app to /Applications and try again."
             alert.runModal()
         }
         rebuildMenu()

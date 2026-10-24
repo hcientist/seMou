@@ -4,7 +4,7 @@ import CoreImage
 // Converts black-on-white line art into the menu bar template image: background becomes
 // transparent, lines are thickened so they survive scaling down to 18pt, and the drawing is
 // cropped square. Run from the repo root:
-//   swift Tools/make-menubar-icon.swift semou-menubar-icon.png Resources/Assets.xcassets/MenuBarIcon.imageset 14
+//   swift Tools/make-menubar-icon.swift seMou-menubar-icon.png Resources/Assets.xcassets/MenuBarIcon.imageset 14
 let args = CommandLine.arguments
 let src = CIImage(contentsOf: URL(fileURLWithPath: args[1]))!
 let outDir = args[2]

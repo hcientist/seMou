@@ -1,4 +1,4 @@
-# Semou
+# seMou
 
 A menu bar app for macOS 13 and later that makes multi-monitor setups easier to move around.
 
@@ -14,9 +14,9 @@ It needs no special permissions. Mouse movement is watched with an `NSEvent` glo
 
 ## Build
 
-`Semou.xcodeproj` is generated from `project.yml` with [XcodeGen](https://github.com/yonaskolb/XcodeGen). After adding files or changing settings, run `xcodegen generate`. Then open the project in Xcode and press Run.
+`seMou.xcodeproj` is generated from `project.yml` with [XcodeGen](https://github.com/yonaskolb/XcodeGen). After adding files or changing settings, run `xcodegen generate`. Then open the project in Xcode and press Run.
 
-The app is sandboxed (`Resources/Semou.entitlements`), which TestFlight and the Mac App Store require.
+The app is sandboxed (`Resources/seMou.entitlements`), which TestFlight and the Mac App Store require.
 
 ## TestFlight
 

@@ -1,13 +1,13 @@
 #!/bin/zsh
-# Archives Semou and uploads it to App Store Connect for TestFlight.
+# Archives seMou and uploads it to App Store Connect for TestFlight.
 # Requires the app record to exist in App Store Connect and your Apple ID signed in to Xcode.
 set -euo pipefail
 cd "${0:A:h}"
 
-ARCHIVE=build/Semou.xcarchive
+ARCHIVE=build/seMou.xcarchive
 rm -rf "$ARCHIVE"
 xcodegen generate
-xcodebuild -project Semou.xcodeproj -scheme Semou -configuration Release \
+xcodebuild -project seMou.xcodeproj -scheme seMou -configuration Release \
   -destination 'generic/platform=macOS' -archivePath "$ARCHIVE" -allowProvisioningUpdates archive
 xcodebuild -exportArchive -archivePath "$ARCHIVE" -exportOptionsPlist ExportOptions.plist \
   -exportPath build/export -allowProvisioningUpdates
