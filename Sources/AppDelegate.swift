@@ -57,7 +57,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         Displays.warp(to: target.center)
     }
 
+    /// Launching seMou again (Finder, Spotlight, Dock) while it's running shows the status menu at
+    /// the cursor, so settings stay reachable when the menu bar icon is hidden (e.g. behind the notch).
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        // Let the reopen event finish before running the menu's tracking loop.
+        DispatchQueue.main.async {
+            NSApp.activate(ignoringOtherApps: true)
+            self.makeMenu().popUp(positioning: nil, at: NSEvent.mouseLocation, in: nil)
+        }
+        return false
+    }
+
     private func rebuildMenu() {
+        statusItem.menu = makeMenu()
+    }
+
+    private func makeMenu() -> NSMenu {
         let menu = NSMenu()
 
         let wrap = NSMenuItem(title: "Wrap Cursor at Screen Edges", action: #selector(toggleWrap), keyEquivalent: "")
@@ -97,7 +112,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(NSMenuItem(title: "Quit seMou", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
 
         menu.items.forEach { if $0.action != #selector(NSApplication.terminate(_:)) { $0.target = self } }
-        statusItem.menu = menu
+        return menu
     }
 
     private func arrowKeyEquivalent(_ direction: Direction) -> Int {
