@@ -1,5 +1,5 @@
 #!/bin/zsh
-# Archives seMou and uploads it to App Store Connect for TestFlight.
+# Archives seMou and uploads it to App Store Connect for TestFlight distribution.
 # Requires the app record to exist in App Store Connect and your Apple ID signed in to Xcode.
 set -euo pipefail
 cd "${0:A:h}"
