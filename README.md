@@ -1,5 +1,11 @@
 # seMou
 
+Wrap your
+
+<pre>
+&nbsp;&nbsp;&nbsp;se<br>Mou
+</pre>
+
 A menu bar app for macOS 13 and later that makes multi-monitor setups easier to move around.
 
 - **Edge wrap:** push the cursor past the right edge of the right-most display and it comes out at the left edge of the left-most display, and the other way round. It stays at the same height, or the same relative height when the displays differ in size.
